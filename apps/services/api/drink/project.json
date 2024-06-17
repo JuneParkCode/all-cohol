@@ -1,0 +1,40 @@
+{
+  "name": "svc-drink",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/services/api/drink/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "svc-drink:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "svc-drink:build:development"
+        },
+        "production": {
+          "buildTarget": "svc-drink:build:production"
+        }
+      }
+    },
+    "build": {
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "transformers": [
+          "typia/lib/transform",
+          {
+            "name": "@nestia/core/lib/transform",
+            "options": {
+              "validate": "assert",
+              "stringify": "assert"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

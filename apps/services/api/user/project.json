@@ -1,0 +1,40 @@
+{
+  "name": "svc-user",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/services/api/user/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "svc-user:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "svc-user:build:development"
+        },
+        "production": {
+          "buildTarget": "svc-user:build:production"
+        }
+      }
+    },
+    "build": {
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "transformers": [
+          "typia/lib/transform",
+          {
+            "name": "@nestia/core/lib/transform",
+            "options": {
+              "validate": "assert",
+              "stringify": "assert"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
